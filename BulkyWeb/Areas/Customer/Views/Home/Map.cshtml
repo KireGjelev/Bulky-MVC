@@ -1,0 +1,40 @@
+﻿
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Map</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/ol@9.0.0/dist/ol.css" type="text/css">
+    <style>
+        .map-container {
+            height: 80vh;
+            width: 80%;
+            margin: auto;
+        }
+    </style>
+</head>
+<body>
+    <div id="map" class="map-container"></div>
+
+    <script src="https://cdn.jsdelivr.net/npm/ol@9.0.0/dist/ol.js"></script>
+
+    <script>
+        //Initialize the map component once the DOM content is fully loaded
+        document.addEventListener('DOMContentLoaded', function () {
+            var map = new ol.Map({
+                target: 'map',
+                layers: [
+                    new ol.layer.Tile({
+                        source: new ol.source.OSM()
+                    })
+                ],
+                view: new ol.View({
+                    center: ol.proj.fromLonLat([21.751, 41.615]),
+                    zoom: 8
+                })
+            });
+        });
+    </script>
+</body>
+</html>

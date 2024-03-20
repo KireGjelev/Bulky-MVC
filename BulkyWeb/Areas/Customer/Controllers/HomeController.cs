@@ -77,6 +77,11 @@ namespace BulkyWeb.Areas.Customer.Controllers
             return View();
         }
 
+        public IActionResult Map()
+        {
+            return View("~/Areas/Customer/Views/Home/Map.cshtml");
+        }
+
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()
         {

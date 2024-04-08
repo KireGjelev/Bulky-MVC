@@ -40,12 +40,25 @@ builder.Services.AddSession(options => {
 });
 
 builder.Services.AddScoped<IDbInitializer, DbInitializer>();
-builder.Services.AddRazorPages();
+builder.Services.AddRazorPages().AddRazorPagesOptions(options =>
+{
+    // Authorize access to the Admin area
+    options.Conventions.AuthorizeAreaPage("Admin", "/Index");
+
+    // Optionally, set a default page for the Admin area
+    options.Conventions.AddPageRoute("/Admin/Index", "Admin");
+
+    // Authorize access to the Customer area
+    options.Conventions.AuthorizeAreaPage("Customer", "/Index");
+
+    // Optionally, set a default page for the Customer area
+    options.Conventions.AddPageRoute("/Customer/Index", "Customer");
+});
 builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
 builder.Services.AddScoped<IEmailSender, EmailSender>();
+
 var app = builder.Build();
 AppContext.SetSwitch("Npgsql.EnableLegacyTimestampBehavior", true);
-
 
 // Configure the HTTP request pipeline.
 if (!app.Environment.IsDevelopment())

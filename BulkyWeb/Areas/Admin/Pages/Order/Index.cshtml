@@ -45,23 +45,24 @@
         <div class="d-flex justify-content-between pb-5 pt-2">
             <span></span>
             <ul class="list-group list-group-horizontal-sm">
-                <a style="text-decoration:none;" asp-controller="Order" asp-action="Index" asp-route-status="inprocess">
-                <li class="list-group-item @inprocess">In Process</li>
-                </a>
-                <a style="text-decoration:none;" asp-controller="Order" asp-action="Index" asp-route-status="pending">
-                <li class="list-group-item @pending">Payment Pending</li>
-                </a>
-                <a style="text-decoration:none;" asp-controller="Order" asp-action="Index" asp-route-status="completed">
-                <li class="list-group-item @completed">Completed</li>
-                </a>
-                <a style="text-decoration:none;" asp-controller="Order" asp-action="Index" asp-route-status="approved">
-                <li class="list-group-item @approved">Approved</li>
-                </a>
-                <a style="text-decoration:none;" asp-controller="Order" asp-action="Index" asp-route-status="all">
-                <li class="list-group-item @all">All</li>
-                </a>
+                <li class="list-group-item">
+                    <a asp-page="/Order/Index" asp-route-status="inprocess" class="@inprocess" style="text-decoration:none;">In Process</a>
+                </li>
+                <li class="list-group-item">
+                    <a asp-page="/Order/Index" asp-route-status="pending" class="@pending" style="text-decoration:none;">Payment Pending</a>
+                </li>
+                <li class="list-group-item">
+                    <a asp-page="/Order/Index" asp-route-status="completed" class="@completed" style="text-decoration:none;">Completed</a>
+                </li>
+                <li class="list-group-item">
+                    <a asp-page="/Order/Index" asp-route-status="approved" class="@approved" style="text-decoration:none;">Approved</a>
+                </li>
+                <li class="list-group-item">
+                    <a asp-page="/Order/Index" asp-route-status="all" class="@all" style="text-decoration:none;">All</a>
+                </li>
             </ul>
         </div>
+
         <table id="tblData" class="table table-bordered table-striped" style="width:100%">
             <thead>
                 <tr>

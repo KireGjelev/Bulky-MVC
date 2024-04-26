@@ -43,4 +43,31 @@
     <Folder Include="wwwroot\images\products\product-1\" />
   </ItemGroup>
 
+  <ItemGroup>
+    <None Include="Areas\AdminMVC\Views\Category\Create.cshtml" />
+    <None Include="Areas\AdminMVC\Views\Category\Delete.cshtml" />
+    <None Include="Areas\AdminMVC\Views\Category\Edit.cshtml" />
+    <None Include="Areas\AdminMVC\Views\Category\Index.cshtml" />
+    <None Include="Areas\AdminMVC\Views\Company\Index.cshtml" />
+    <None Include="Areas\AdminMVC\Views\Company\Upsert.cshtml" />
+    <None Include="Areas\AdminMVC\Views\Order\Details.cshtml" />
+    <None Include="Areas\AdminMVC\Views\Order\Index.cshtml" />
+    <None Include="Areas\AdminMVC\Views\Order\PaymentConfirmation.cshtml" />
+    <None Include="Areas\AdminMVC\Views\Product\Index.cshtml" />
+    <None Include="Areas\AdminMVC\Views\Product\Upsert.cshtml" />
+    <None Include="Areas\AdminMVC\Views\User\Index.cshtml" />
+    <None Include="Areas\AdminMVC\Views\User\RoleManagment.cshtml" />
+    <None Include="Areas\AdminMVC\Views\_ViewImports.cshtml" />
+    <None Include="Areas\AdminMVC\Views\_ViewStart.cshtml" />
+    <None Include="Areas\CustomerMVC\Views\Cart\Index.cshtml" />
+    <None Include="Areas\CustomerMVC\Views\Cart\OrderConfirmation.cshtml" />
+    <None Include="Areas\CustomerMVC\Views\Cart\Summary.cshtml" />
+    <None Include="Areas\CustomerMVC\Views\Home\Details.cshtml" />
+    <None Include="Areas\CustomerMVC\Views\Home\Index.cshtml" />
+    <None Include="Areas\CustomerMVC\Views\Home\Map.cshtml" />
+    <None Include="Areas\CustomerMVC\Views\Home\Privacy.cshtml" />
+    <None Include="Areas\CustomerMVC\Views\_ViewImports.cshtml" />
+    <None Include="Areas\CustomerMVC\Views\_ViewStart.cshtml" />
+  </ItemGroup>
+
 </Project>

@@ -12,8 +12,8 @@ namespace BulkyWeb.Pages.Customer.Home
     {
         private readonly IUnitOfWork _unitOfWork;
 
-        [BindProperty] // Allows binding from query string
-        public int ProductId { get; set; } // Bind product id from query string
+        [BindProperty] 
+        public int ProductId { get; set; } 
 
         [BindProperty]
         public ShoppingCart Cart { get; set; }
@@ -35,7 +35,7 @@ namespace BulkyWeb.Pages.Customer.Home
 
             if (Cart.Product == null)
             {
-                // Handle case when product is not found
+                
                 return RedirectToPage("/NotFound"); // Redirect to a custom not found page
             }
 

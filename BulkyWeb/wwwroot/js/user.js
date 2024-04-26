@@ -6,7 +6,7 @@ $(document).ready(function () {
 
 function loadDataTable() {
     dataTable = $('#tblData').DataTable({
-        "ajax": { url: '/admin/user/getall' },
+        "ajax": { url: '/api/user/getall' },
         "columns": [
             { "data": "name", "width": "15%" },
             { "data": "email", "width": "15%" },
@@ -43,8 +43,6 @@ function loadDataTable() {
                         </div>
                     `
                     }
-
-
                 },
                 "width": "25%"
             }
@@ -52,11 +50,10 @@ function loadDataTable() {
     });
 }
 
-
 function LockUnlock(id) {
     $.ajax({
         type: "POST",
-        url: '/Admin/User/LockUnlock',
+        url: '/api/user/lockunlock',
         data: JSON.stringify(id),
         contentType: "application/json",
         success: function (data) {

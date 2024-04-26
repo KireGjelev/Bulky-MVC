@@ -4,7 +4,7 @@ using Bulky.Utility;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
-namespace BulkyWeb.Areas.Admin.Controllers
+namespace BulkyWeb.Areas.AdminMVC.Controllers
 {
 	[Area("Admin")]
 	[Authorize(Roles = SD.Role_Admin)]

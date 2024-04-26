@@ -3,8 +3,6 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.Identity;
 using Bulky.Models.ViewModels;
 using Bulky.Models;
-using System.Linq;
-using System.Collections.Generic;
 using Bulky.DataAccess.Repository.IRepository;
 using Bulky.Utility;
 using Microsoft.AspNetCore.Mvc.Rendering;

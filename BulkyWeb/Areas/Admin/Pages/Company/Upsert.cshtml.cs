@@ -26,7 +26,6 @@ namespace BulkyWeb.Areas.Admin.Pages.Company
             }
             else
             {
-                // Fetch company details for editing
                 CompanyObj =  _unitOfWork.Company.Get(u => u.Id == id);
                 if (CompanyObj == null)
                 {

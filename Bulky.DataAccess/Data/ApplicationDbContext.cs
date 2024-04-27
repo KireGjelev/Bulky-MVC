@@ -2,7 +2,10 @@
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
+using NetTopologySuite.Geometries;
+using NetTopologySuite;
 using static Microsoft.EntityFrameworkCore.DbLoggerCategory.Database;
+using Microsoft.Extensions.Configuration;
 
 namespace Bulky.DataAccess.Data
 {
@@ -22,10 +25,23 @@ namespace Bulky.DataAccess.Data
         public DbSet<OrderHeader> OrderHeaders { get; set; }
         public DbSet<OrderDetail> OrderDetails { get; set; }
 
+        public DbSet<Shop> Shops { get; set; }
+
+        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+        {
+            base.OnConfiguring(optionsBuilder);
+
+            optionsBuilder.UseNpgsql("Server=localhost;Port=5432;Database=BulkyWeb;UserId=postgres;Password=Kire.112333;", npgsqlOptions =>
+            {
+                npgsqlOptions.UseNetTopologySuite();
+            });
+        }
+
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
 
             base.OnModelCreating(modelBuilder);
+
 
             modelBuilder.Entity<Category>().HasData(
                 new Category { Id = 1, Name = "Action", DisplayOrder = 1 },
@@ -65,6 +81,14 @@ namespace Bulky.DataAccess.Data
                     PhoneNumber = "1113335555"
                 }
                 );
+
+            modelBuilder.Entity<Shop>().HasData(
+                new Shop
+                {
+                    Id = 1,
+                    Name = "First Shop",
+                    Location = new Point(21.4225, 41.9973) { SRID = 4326 }
+                });
 
 
             modelBuilder.Entity<Product>().HasData(

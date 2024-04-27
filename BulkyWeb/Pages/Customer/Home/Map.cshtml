@@ -26,36 +26,49 @@
     <script src="https://cdn.jsdelivr.net/npm/ol@9.0.0/dist/ol.js"></script>
 
     <script>
-        document.addEventListener('DOMContentLoaded', function () {
-            var map = new ol.Map({
-                target: 'map',
-                layers: [
-                    new ol.layer.Tile({
-                        source: new ol.source.OSM()
+    document.addEventListener('DOMContentLoaded', function () {
+        var map = new ol.Map({
+            target: 'map',
+            layers: [
+                new ol.layer.Tile({
+                    source: new ol.source.OSM()
+                }),
+                new ol.layer.Vector({
+                    source: new ol.source.Vector({
+                        features: [
+                            @foreach(var shop in Model.Shops)
+                            {
+                                <text>
+                                    new ol.Feature({
+                                        geometry: new ol.geom.Point(ol.proj.fromLonLat([@(shop.Location.Y), @(shop.Location.X)]))
+                                    }),
+                                </text>
+                            }
+                        ]
                     }),
-                    new ol.layer.Vector({
-                        source: new ol.source.Vector({
-                            features: [
-                                new ol.Feature({
-                                    geometry: new ol.geom.Point(ol.proj.fromLonLat([22.011605, 41.435637]))
-                                })
-                            ]
-                        }),
-                        style: new ol.style.Style({
-                            image: new ol.style.Icon({
-                                anchor: [0.5, 1],
-                                src: '/images/icon.png'
-                            })
+                    style: new ol.style.Style({
+                        image: new ol.style.Icon({
+                            anchor: [0.5, 1],
+                            src: '/images/icon.png'
                         })
                     })
-                ],
-                view: new ol.View({
-                    center: ol.proj.fromLonLat([22.011605, 41.435637]),
-                    zoom: 13.5
                 })
+            ],
+            view: new ol.View({
+                center: ol.proj.fromLonLat([21.751, 41.615]),
+                zoom: 8.5
+            })
+        });
+
+        map.on('click', function (event) {
+            map.forEachFeatureAtPixel(event.pixel, function (feature) {
+                var coordinates = feature.getGeometry().getCoordinates();
+
+                map.getView().animate({ center: coordinates, zoom: 17, duration: 1000 });
             });
         });
-    </script>
+    });
+</script>
 
 
 </body>

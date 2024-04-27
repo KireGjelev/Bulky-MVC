@@ -1,20 +1,19 @@
 using Bulky.DataAccess.Repository.IRepository;
-using Bulky.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
-using System.Diagnostics;
 
-namespace BulkyWeb.Pages.Customer.Home
+namespace BulkyWeb.Areas.Admin.Pages.Shop
 {
-    public class MapModel : PageModel
+    public class IndexModel : PageModel
     {
+       
         private readonly IUnitOfWork _unitOfWork;
-        public MapModel(IUnitOfWork unitOfWork)
-            {
-                _unitOfWork = unitOfWork;
-            }
+        public IndexModel(IUnitOfWork unitOfWork)
+        {
+            _unitOfWork = unitOfWork;
+        }
 
-        public IList<Shop> Shops { get; set; }
+        public IList<Bulky.Models.Shop> Shops { get; set; }
 
 
         public IActionResult OnGet()

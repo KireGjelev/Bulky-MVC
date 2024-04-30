@@ -18,6 +18,22 @@
             margin: 0;
             z-index: 1;
         }
+
+        .custom-popup {
+            background: linear-gradient(to bottom, #ffffff, #f5f5f5);
+            border: 1px solid #ccc;
+            border-radius: 10px;
+            padding: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            transition: all 0.3s ease;
+            max-height: 50px;
+            overflow-y: hidden;
+        }
+
+            .custom-popup:hover {
+                transform: scale(1.05);
+                box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3);
+            }
     </style>
 </head>
 <body>
@@ -25,51 +41,94 @@
 
     <script src="https://cdn.jsdelivr.net/npm/ol@9.0.0/dist/ol.js"></script>
 
+
     <script>
-    document.addEventListener('DOMContentLoaded', function () {
-        var map = new ol.Map({
-            target: 'map',
-            layers: [
-                new ol.layer.Tile({
-                    source: new ol.source.OSM()
-                }),
-                new ol.layer.Vector({
-                    source: new ol.source.Vector({
-                        features: [
-                            @foreach(var shop in Model.Shops)
-                            {
+        document.addEventListener('DOMContentLoaded', function () {
+            var map = new ol.Map({
+                target: 'map',
+                layers: [
+                    new ol.layer.Tile({
+                        source: new ol.source.OSM()
+                    }),
+                    new ol.layer.Vector({
+                        source: new ol.source.Vector({
+                            features: [
+                                        @foreach (var shop in Model.Shops){
                                 <text>
                                     new ol.Feature({
-                                        geometry: new ol.geom.Point(ol.proj.fromLonLat([@(shop.Location.Y), @(shop.Location.X)]))
+                                        geometry: new ol.geom.Point(ol.proj.fromLonLat([@(shop.Location.Y), @(shop.Location.X)])),
+                                        name: '@(shop.Name)'
                                     }),
                                 </text>
-                            }
-                        ]
-                    }),
-                    style: new ol.style.Style({
-                        image: new ol.style.Icon({
-                            anchor: [0.5, 1],
-                            src: '/images/icon.png'
+                                }
+                            ]
+                        }),
+                        style: new ol.style.Style({
+                            image: new ol.style.Icon({
+                                anchor: [0.5, 1],
+                                src: '/images/icon.png'
+                            })
                         })
                     })
+                ],
+                view: new ol.View({
+                    center: ol.proj.fromLonLat([21.751, 41.615]),
+                    zoom: 8.5
                 })
-            ],
-            view: new ol.View({
-                center: ol.proj.fromLonLat([21.751, 41.615]),
-                zoom: 8.5
-            })
-        });
-
-        map.on('click', function (event) {
-            map.forEachFeatureAtPixel(event.pixel, function (feature) {
-                var coordinates = feature.getGeometry().getCoordinates();
-
-                map.getView().animate({ center: coordinates, zoom: 17, duration: 1000 });
             });
-        });
-    });
-</script>
 
+            var popup = new ol.Overlay({
+                element: document.getElementById('popup'),
+                autoPan: true,
+                autoPanAnimation: {
+                    duration: 250
+                }
+            });
+            map.addOverlay(popup);
+
+            var isPopupVisible = false;
+
+            map.on('click', function (event) {
+                var features = [];
+                map.forEachFeatureAtPixel(event.pixel, function (feature) {
+                    features.push(feature);
+                });
+
+                if (features.length > 0) {
+                    var clickedFeature = features[0];
+                    var coordinates = clickedFeature.getGeometry().getCoordinates();
+                    var shopName = clickedFeature.get('name');
+
+                    var view = map.getView();
+                    var currentZoom = view.getZoom();
+
+                    if (currentZoom < 18) {
+                        view.animate({ center: coordinates, zoom: 18, duration: 1000 });
+                    } else {
+                        if (isPopupVisible) {
+                            popup.setPosition(undefined);
+                            isPopupVisible = false;
+                        } else {
+                            while (popup.getElement().firstChild) {
+                                popup.getElement().removeChild(popup.getElement().firstChild);
+                            }
+
+                            popup.setPosition(coordinates);
+                            var popupContent = document.createElement('div');
+                            popupContent.innerHTML = '<p>' + (shopName || "Shop Name Not Available") + '</p>';
+                            popup.getElement().appendChild(popupContent);
+                            isPopupVisible = true;
+                        }
+                    }
+                }
+            });
+
+        });
+    </script>
+
+    <div id="popup" class="ol-popup custom-popup">
+        <p id="shopName"></p>
+    </div>
 
 </body>
 </html>

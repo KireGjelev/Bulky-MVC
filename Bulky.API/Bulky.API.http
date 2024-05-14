@@ -1,0 +1,6 @@
+@Bulky.API_HostAddress = http://localhost:5187
+
+GET {{Bulky.API_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###

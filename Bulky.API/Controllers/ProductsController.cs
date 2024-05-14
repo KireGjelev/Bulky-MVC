@@ -35,5 +35,6 @@ namespace Bulky.API.Controllers
             }
             return Ok(product);
         }
+
     }
 }
